@@ -11,12 +11,33 @@ namespace ThreadA
     {
         static void Main(string[] args)
         {
-            Thread ta = new Thread(TestMethod);
+            Thread threadA = new Thread(TestMethod);
+            Thread threadB = new Thread(delegate () {
+                for (int i = 0; i < 1000; i++)
+                {
+                    Console.WriteLine("B");
+                }
+            });
+            Thread threadC = new Thread(() => {
+                for (int i = 0; i < 1000; i++)
+                {
+                    Console.WriteLine("C");
+                }
+            });
+
+            threadA.Start();
+            threadB.Start();
+            threadC.Start();
         }
 
-        public void TestMethod()
+        private static void TestMethod()
         {
+            //Console.WriteLine("아아아아");
 
+            for(int i=0;i<1000; i++)
+            {
+                Console.WriteLine("A");
+            }
         }
     }
 }
